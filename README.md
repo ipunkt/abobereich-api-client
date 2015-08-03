@@ -1,6 +1,8 @@
 # abobereich-api-client
 API Client for abobereich. A subscription and recurring billing service for on- and offline subscriptions.
 
+[![Latest Stable Version](https://poser.pugx.org/ipunkt/abobereich-api-client/v/stable.svg)](https://packagist.org/packages/ipunkt/abobereich-api-client) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/abobereich-api-client/v/unstable.svg)](https://packagist.org/packages/ipunkt/abobereich-api-client) [![License](https://poser.pugx.org/ipunkt/abobereich-api-client/license.svg)](https://packagist.org/packages/ipunkt/abobereich-api-client) [![Total Downloads](https://poser.pugx.org/ipunkt/abobereich-api-client/downloads.svg)](https://packagist.org/packages/ipunkt/abobereich-api-client)
+
 
 ## Configuration
 
