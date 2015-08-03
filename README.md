@@ -10,7 +10,7 @@ You need a base url to your abobereich server and an api key with a secret. The 
 	$uri = 'https://www.abobereich.de';
 	$key = 'YOUR_API_KEY_HERE';
 	$secret = 'YOUR_API_SECRET_HERE';
-	$client = new Abobereich\ApiClient\Client($uri, $key, $secret);
+	$client = new \Abobereich\ApiClient\Client($uri, $key, $secret);
 
 
 ## Contexts
@@ -77,5 +77,11 @@ The plans always depends on products. So you have to set the product for the pla
 
 	/** @var array|\Abobereich\ApiClient\Models\Plan[] $plans */
 	$plans = $client->plans($product)->all();
+
+
+#### Getting a plan for a product
+
+	/** @var array|\Abobereich\ApiClient\Models\Plan $plan */
+	$plan = $client->plans($product)->find($id);
 
 

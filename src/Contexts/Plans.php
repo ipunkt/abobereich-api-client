@@ -46,6 +46,18 @@ class Plans extends Context
     }
 
     /**
+     * returns a single plan for a product
+     *
+     * @param int $id
+     *
+     * @return \Abobereich\ApiClient\Models\Plan
+     */
+    public function find($id)
+    {
+        return $this->get('/api/products/' . $this->productId . '/plans/' . $id, 'plan');
+    }
+
+    /**
      * returns a transformer
      *
      * @return Transformer|PlanTransformer
