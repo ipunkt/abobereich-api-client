@@ -1,0 +1,21 @@
+{
+    "name": "ipunkt/abobereich-api-client",
+    "description": "API Client for abobereich. A subscription and recurring billing service for on- and offline subscriptions.",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abobereich\\ApiClient\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Kummer",
+            "email": "rok@ipunkt.biz"
+        }
+    ],
+    "minimum-stability": "stable"
+}
