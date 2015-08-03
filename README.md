@@ -63,3 +63,19 @@ The api client has different contexts, so you can divide api parts into separate
 	$product = $client->products()->find($id);
 
 
+### Plans
+
+The plans always depends on products. So you have to set the product for the plans context.
+
+	$client->plans($product);    // the plans context
+
+	//  or later on
+	$plansContext->setProduct($product);    // set another product for the plans context
+
+
+#### Getting all plans for a product
+
+	/** @var array|\Abobereich\ApiClient\Models\Plan[] $plans */
+	$plans = $client->plans($product)->all();
+
+

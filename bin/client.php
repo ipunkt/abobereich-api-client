@@ -26,3 +26,10 @@ $products = $client->products()->all();
 
 echo count($products) . ' products found' . PHP_EOL;
 
+if (isset($products[0])) {
+    //  getting all plans for first product
+    $plans = $client->plans($products[0])->all();
+
+    echo count($plans) . ' plans for product ' . $products[0]->getName() . ' found' . PHP_EOL;
+
+}
