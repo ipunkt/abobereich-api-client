@@ -1,6 +1,7 @@
 {
     "name": "ipunkt/abobereich-api-client",
     "description": "API Client for abobereich. A subscription and recurring billing service for on- and offline subscriptions.",
+    "keywords": ["api", "client", "subscriptions", "recurring billing", "period based billing", "subscription based permissions"],
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.0"
