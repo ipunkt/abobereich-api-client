@@ -10,7 +10,7 @@ You need an base url to your abobereich server and an api key with a secret. The
 	$uri = 'https://www.abobereich.de';
 	$key = 'YOUR_API_KEY_HERE';
 	$secret = 'YOUR_API_SECRET_HERE';
-	$client = $client = new Abobereich\ApiClient\Client($uri, $key, $secret);
+	$client = new Abobereich\ApiClient\Client($uri, $key, $secret);
 
 
 ## Contexts
