@@ -21,7 +21,8 @@ if (isset($accounts[0])) {
     echo $accounts[0]->getName() . ' is the name of the first account' . PHP_EOL;
 }
 
-$account = $client->accounts()->find(30);
+//  getting all products
+$products = $client->products()->all();
 
-echo $account->getId() . ' has to be ID 30' . PHP_EOL;
+echo count($products) . ' products found' . PHP_EOL;
 

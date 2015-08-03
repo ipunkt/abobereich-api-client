@@ -46,3 +46,20 @@ The api client has different contexts, so you can divide api parts into separate
 	$account = $client->accounts()->find($id);
 
 
+### Products
+
+	$client->products();    // the products context
+
+
+#### Getting all products
+
+	/** @var array|\Abobereich\ApiClient\Models\Product[] $products */
+	$products = $client->products()->all();
+
+
+#### Getting an account by id
+
+	/** @var \Abobereich\ApiClient\Models\Account $product */
+	$product = $client->products()->find($id);
+
+

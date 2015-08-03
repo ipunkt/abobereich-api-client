@@ -3,6 +3,7 @@
 namespace Abobereich\ApiClient;
 
 use Abobereich\ApiClient\Contexts\Accounts;
+use Abobereich\ApiClient\Contexts\Products;
 use Abobereich\ApiClient\Contexts\Tenants;
 
 /**
@@ -54,5 +55,15 @@ class Client
     public function tenants()
     {
         return new Tenants($this->client);
+    }
+
+    /**
+     * returns the products context
+     *
+     * @return \Abobereich\ApiClient\Contexts\Products
+     */
+    public function products()
+    {
+        return new Products($this->client);
     }
 }
