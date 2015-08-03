@@ -4,7 +4,7 @@ API Client for abobereich. A subscription and recurring billing service for on- 
 
 ## Configuration
 
-You need an base url to your abobereich server and an api key with a secret. The credentials can be configured in the
+You need a base url to your abobereich server and an api key with a secret. The credentials can be configured in the
  tenant dialog at the abobereich server.
 
 	$uri = 'https://www.abobereich.de';
