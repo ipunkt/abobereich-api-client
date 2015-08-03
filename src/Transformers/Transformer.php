@@ -2,6 +2,8 @@
 
 namespace Abobereich\ApiClient\Transformers;
 
+use Abobereich\ApiClient\Models\Model;
+
 /**
  * Class Transformer
  *
@@ -33,7 +35,7 @@ abstract class Transformer
      *
      * @param array $item
      *
-     * @return mixed
+     * @return Model
      */
     abstract public function transform($item);
 }

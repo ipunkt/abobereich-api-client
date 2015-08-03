@@ -18,6 +18,17 @@ You need an base url to your abobereich server and an api key with a secret. The
 The api client has different contexts, so you can divide api parts into separate contexts.
 
 
+### Tenants
+
+	$client->tenants();    // the tenants context
+
+
+#### Getting my own tenant
+
+	/** @var \Abobereich\ApiClient\Models\Tenant $tenant */
+    $tenant = $client->tenants()->me();
+
+
 ### Accounts
 
 	$client->accounts();    // the accounts context

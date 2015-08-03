@@ -3,6 +3,7 @@
 namespace Abobereich\ApiClient;
 
 use Abobereich\ApiClient\Contexts\Accounts;
+use Abobereich\ApiClient\Contexts\Tenants;
 
 /**
  * Class Client
@@ -43,5 +44,15 @@ class Client
     public function accounts()
     {
         return new Accounts($this->client);
+    }
+
+    /**
+     * returns the tenants context
+     *
+     * @return Tenants
+     */
+    public function tenants()
+    {
+        return new Tenants($this->client);
     }
 }

@@ -8,6 +8,10 @@ $config = include __DIR__ . '/config.php';
 
 $client = new Abobereich\ApiClient\Client($config['uri'], $config['key'], $config['secret']);
 
+//  getting my tenant name
+$tenant = $client->tenants()->me();
+echo 'My tenant name is ' . $tenant->getName() . PHP_EOL;
+
 //  getting all account
 $accounts = $client->accounts()->all();
 

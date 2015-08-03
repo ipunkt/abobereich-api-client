@@ -2,6 +2,7 @@
 
 namespace Abobereich\ApiClient\Contexts;
 
+use Abobereich\ApiClient\Models\Model;
 use Abobereich\ApiClient\Transformers\Transformer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -42,7 +43,7 @@ abstract class Context
      * @param string $uri
      * @param string $indexOfResponse
      *
-     * @return mixed
+     * @return Model
      */
     protected function get($uri, $indexOfResponse = 'data')
     {
@@ -61,7 +62,7 @@ abstract class Context
      * @param string $uri
      * @param string $indexOfResponse
      *
-     * @return array
+     * @return array|Model[]
      */
     protected function index($uri, $indexOfResponse = 'data')
     {
