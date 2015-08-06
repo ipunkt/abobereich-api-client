@@ -80,9 +80,9 @@ First you have to create a model instance and set the values. All are optional, 
 	$products = $client->products()->all();
 
 
-#### Getting an account by id
+#### Getting a product by id
 
-	/** @var \Abobereich\ApiClient\Models\Account $product */
+	/** @var \Abobereich\ApiClient\Models\Product $product */
 	$product = $client->products()->find($id);
 
 
