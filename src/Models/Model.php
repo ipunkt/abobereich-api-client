@@ -2,12 +2,16 @@
 
 namespace Abobereich\ApiClient\Models;
 
+use JsonSerializable;
+use ReflectionClass;
+use ReflectionProperty;
+
 /**
  * Class Model
  *
  * @package Abobereich\ApiClient\Models
  */
-abstract class Model
+abstract class Model implements JsonSerializable
 {
     /**
      * id
@@ -82,7 +86,7 @@ abstract class Model
      */
     public function setCreatedAt($created_at)
     {
-        if ( ! $created_at instanceof \DateTime) {
+        if (null !== $created_at &&  ! $created_at instanceof \DateTime) {
             $created_at = \DateTime::createFromFormat('Y-m-d H:i:s', $created_at);
         }
 
@@ -99,11 +103,45 @@ abstract class Model
      */
     public function setUpdatedAt($updated_at)
     {
-        if ( ! $updated_at instanceof \DateTime) {
+        if (null !== $updated_at && ! $updated_at instanceof \DateTime) {
             $updated_at = \DateTime::createFromFormat('Y-m-d H:i:s', $updated_at);
         }
 
         $this->updated_at = $updated_at;
         return $this;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     */
+    public function jsonSerialize()
+    {
+        $reflect = new ReflectionClass($this);
+        $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
+
+        $result = [];
+
+        foreach ($props as $prop) {
+            $isProtected = $prop->isProtected();
+            if ($isProtected) {
+                $prop->setAccessible(true);
+            }
+
+            $value = $prop->getValue($this);
+            if (null !== $value) {
+                $result[$prop->getName()] = $value;
+            }
+
+            if ($isProtected) {
+                $prop->setAccessible(false);
+            }
+        }
+
+        return $result;
     }
 }

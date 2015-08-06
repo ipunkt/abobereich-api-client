@@ -48,6 +48,27 @@ The api client has different contexts, so you can divide api parts into separate
 	$account = $client->accounts()->find($id);
 
 
+#### Create an account
+
+First you have to create a model instance and set the values. All are optional, so you can create an empty account if
+ you want to have your account data private. In this case you have to store the resulting id from the api to re-identify
+ this account later on the subscription handling.
+
+	$account = new \Abobereich\ApiClient\Models\Account();
+	$account->setName('John Doe')
+		->setExternalIdentifier('123456-AbcD');// here you can set the account identification from your system
+
+	try {
+		/** @var \Abobereich\ApiClient\Models\Account $account */
+		$account = $client->accounts()->store($account);
+	    echo 'Model created with ID: ' . $account->getId() . PHP_EOL;
+	} catch (\Abobereich\ApiClient\Exceptions\InvalidRequestDataException $e) {
+		echo $e->getMessage() . ': ' . implode(', ', $e->getErrors());
+	} catch (\Abobereich\ApiClient\Exceptions\ModelNotCreatedException $e) {
+		echo 'Model NOT CREATED, Error: ' . $e->getMessage() . PHP_EOL;
+	}
+
+
 ### Products
 
 	$client->products();    // the products context

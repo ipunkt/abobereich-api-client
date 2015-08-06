@@ -33,3 +33,18 @@ if (isset($products[0])) {
     echo count($plans) . ' plans for product ' . $products[0]->getName() . ' found' . PHP_EOL;
 
 }
+
+
+//  create an account
+$account = new \Abobereich\ApiClient\Models\Account();
+$account->setName('Robert Kummer')->setEmail('rok@ipunkt.biz')->setData('address', 'Hartwigstraße 8')->setData('zip', 71638);
+
+try {
+    $account = $client->accounts()->store($account);
+
+    echo 'Model created with ID: ' . $account->getId() . PHP_EOL;
+} catch (\Abobereich\ApiClient\Exceptions\InvalidRequestDataException $e) {
+    echo $e->getMessage() . ': ' . implode(', ', $e->getErrors());
+} catch (\Abobereich\ApiClient\Exceptions\ModelNotCreatedException $e) {
+    echo 'Model NOT CREATED, Error: ' . $e->getMessage() . PHP_EOL;
+}

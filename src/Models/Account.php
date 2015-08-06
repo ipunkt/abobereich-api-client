@@ -45,6 +45,13 @@ class Account extends Model
     protected $external_identifier;
 
     /**
+     * additional account data (key-value-store)
+     *
+     * @var array
+     */
+    protected $data;
+
+    /**
      * returns Name
      *
      * @return string
@@ -92,6 +99,22 @@ class Account extends Model
     public function getExternalIdentifier()
     {
         return $this->external_identifier;
+    }
+
+    /**
+     * returns Data (complete, or defined by key)
+     *
+     * @param null|string $key
+     *
+     * @return array|mixed
+     */
+    public function getData($key = null)
+    {
+        if (null !== $key && array_key_exists($key, $this->data)) {
+            return $this->data[$key];
+        }
+
+        return $this->data;
     }
 
     /**
@@ -156,6 +179,25 @@ class Account extends Model
     public function setExternalIdentifier($external_identifier)
     {
         $this->external_identifier = $external_identifier;
+        return $this;
+    }
+
+    /**
+     * sets data (complete, or as key value)
+     *
+     * @param array|string $data
+     * @param null|mixed $value
+     *
+     * @return $this
+     */
+    public function setData($data, $value = null)
+    {
+        if (is_array($data) && null === $value) {
+            $this->data = $data;
+        } else {
+            $this->data[$data] = $value;
+        }
+
         return $this;
     }
 }

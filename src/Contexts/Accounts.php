@@ -36,6 +36,18 @@ class Accounts extends Context
     }
 
     /**
+     * stores a new account
+     *
+     * @param \Abobereich\ApiClient\Models\Account $account
+     *
+     * @return Account
+     */
+    public function store(Account $account)
+    {
+        return $this->create('/api/accounts', $account, 'account');
+    }
+
+    /**
      * returns a transformer
      *
      * @return Transformer|AccountTransformer
