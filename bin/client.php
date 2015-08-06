@@ -48,3 +48,18 @@ try {
 } catch (\Abobereich\ApiClient\Exceptions\ModelNotCreatedException $e) {
     echo 'Model NOT CREATED, Error: ' . $e->getMessage() . PHP_EOL;
 }
+
+//  update an account
+$account = $client->accounts()->find(1);
+$account->setEmail('hello@world.com')
+    ->setData('zip', '12345');
+
+try {
+    $account = $client->accounts()->update($account);
+
+    echo 'Model updated with ID: ' . $account->getId() . PHP_EOL;
+} catch (\Abobereich\ApiClient\Exceptions\InvalidRequestDataException $e) {
+    echo $e->getMessage() . ': ' . implode(', ', $e->getErrors());
+} catch (\Abobereich\ApiClient\Exceptions\ModelNotUpdatedException $e) {
+    echo 'Model NOT UPDATED, Error: ' . $e->getMessage() . PHP_EOL;
+}

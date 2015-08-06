@@ -4,12 +4,14 @@ namespace Abobereich\ApiClient\Contexts;
 
 use Abobereich\ApiClient\Exceptions\InvalidRequestDataException;
 use Abobereich\ApiClient\Exceptions\ModelNotCreatedException;
+use Abobereich\ApiClient\Exceptions\ModelNotUpdatedException;
 use Abobereich\ApiClient\Exceptions\RequestNotSuccessfulException;
 use Abobereich\ApiClient\Models\Account;
 use Abobereich\ApiClient\Models\Model;
 use Abobereich\ApiClient\Transformers\Transformer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
@@ -109,6 +111,27 @@ abstract class Context
     }
 
     /**
+     * updates a model via api
+     *
+     * @param string $uri
+     * @param \Abobereich\ApiClient\Models\Model $model
+     * @param string $indexOfResponse
+     *
+     * @return Account|null
+     */
+    protected function put($uri, Model $model, $indexOfResponse = 'data')
+    {
+        $response = $this->putRequest($uri, $model);
+        $result = $this->toArray($response);
+
+        if (null !== $result && array_key_exists($indexOfResponse, $result)) {
+            return $this->transformer()->transform($result[$indexOfResponse]);
+        }
+
+        return null;
+    }
+
+    /**
      * returns an array from response stream
      *
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -182,6 +205,48 @@ abstract class Context
             }
 
             throw new ModelNotCreatedException($data, $message, $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * put a request
+     *
+     * @param string $uri
+     * @param Model $data
+     *
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \Abobereich\ApiClient\Exceptions\InvalidRequestDataException
+     * @throws \Abobereich\ApiClient\Exceptions\ModelNotUpdatedException
+     * @throws \Abobereich\ApiClient\Exceptions\RequestNotSuccessfulException
+     */
+    private function putRequest($uri, $data)
+    {
+        try {
+            $request = new Request('PUT', $uri, ['content-type' => 'application/json'], json_encode($data));
+            $response = $this->client->send($request);
+
+            return $response;
+        } catch (ServerException $e) {
+
+            echo $e->getResponse()->getBody();
+
+            throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
+        } catch (ClientException $e) {
+            $message = 'Model could not be updated';
+
+            if ($e->getResponse()->getStatusCode() === 422) {
+                if ($e->hasResponse()) {
+                    $result = json_decode($e->getResponse()->getBody(), true);
+                    throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
+                }
+            } elseif ($e->hasResponse()) {
+                $result = json_decode($e->getResponse()->getBody(), true);
+                if (array_key_exists('message', $result)) {
+                    $message = $result['message'];
+                }
+            }
+
+            throw new ModelNotUpdatedException($data, $message, $e->getCode(), $e);
         }
     }
 }

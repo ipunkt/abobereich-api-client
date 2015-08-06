@@ -48,6 +48,24 @@ class Accounts extends Context
     }
 
     /**
+     * updates an account
+     *
+     * @param \Abobereich\ApiClient\Models\Account $account
+     *
+     * @return Account
+     *
+     * @throws \InvalidArgumentException when model has no id
+     */
+    public function update(Account $account)
+    {
+        if (null === $account->getId()) {
+            throw new \InvalidArgumentException('You need an id for updating your model');
+        }
+
+        return $this->put('/api/accounts/' . $account->getId(), $account, 'account');
+    }
+
+    /**
      * returns a transformer
      *
      * @return Transformer|AccountTransformer
