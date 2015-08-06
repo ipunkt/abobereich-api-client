@@ -227,9 +227,6 @@ abstract class Context
 
             return $response;
         } catch (ServerException $e) {
-
-            echo $e->getResponse()->getBody();
-
             throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
         } catch (ClientException $e) {
             $message = 'Model could not be updated';
