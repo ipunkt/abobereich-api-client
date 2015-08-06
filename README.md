@@ -69,6 +69,25 @@ First you have to create a model instance and set the values. All are optional, 
 	}
 
 
+#### Update an account
+
+Typically you have an account already loaded via `all()` or stored in your database after creating an account instance.
+
+	// $account already loaded (IMPORTANT: getId() returns the correct id)
+	$account->setName('John Doe')
+		->setData('city', 'Los Angeles');
+
+	try {
+        $account = $client->accounts()->update($account);
+
+        echo 'Model updated with ID: ' . $account->getId() . PHP_EOL;
+    } catch (\Abobereich\ApiClient\Exceptions\InvalidRequestDataException $e) {
+        echo $e->getMessage() . ': ' . implode(', ', $e->getErrors());
+    } catch (\Abobereich\ApiClient\Exceptions\ModelNotUpdatedException $e) {
+        echo 'Model NOT UPDATED, Error: ' . $e->getMessage() . PHP_EOL;
+    }
+
+
 ### Products
 
 	$client->products();    // the products context
