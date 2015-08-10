@@ -77,9 +77,10 @@ class Plans extends Context
      *
      * @return \Abobereich\ApiClient\Models\Model
      */
-    public function findBy($attribute, $value)
+    protected function findBy($attribute, $value)
     {
-        return $this->get('/api/products/' . $this->productId . '/plans/0?'.$attribute.'=' . rawurlencode($value), 'plan');
+        return $this->get('/api/products/' . $this->productId . '/plans/0?' . $attribute . '=' . rawurlencode($value),
+            'plan');
     }
 
     /**

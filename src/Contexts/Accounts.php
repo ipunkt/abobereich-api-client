@@ -55,9 +55,9 @@ class Accounts extends Context
      *
      * @return \Abobereich\ApiClient\Models\Model
      */
-    public function findBy($attribute, $value)
+    protected function findBy($attribute, $value)
     {
-        return $this->get('/api/accounts/0?'.$attribute.'=' . rawurlencode($value), 'account');
+        return $this->get('/api/accounts/0?' . $attribute . '=' . rawurlencode($value), 'account');
     }
 
     /**

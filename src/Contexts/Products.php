@@ -54,9 +54,9 @@ class Products extends Context
      *
      * @return \Abobereich\ApiClient\Models\Product
      */
-    public function findBy($attribute, $value)
+    protected function findBy($attribute, $value)
     {
-        return $this->get('/api/products/0?'.$attribute.'=' . rawurlencode($value), 'product');
+        return $this->get('/api/products/0?' . $attribute . '=' . rawurlencode($value), 'product');
     }
 
     /**
