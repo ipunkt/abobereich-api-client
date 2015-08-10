@@ -117,6 +117,18 @@ Typically you have an account already loaded via `all()` or stored in your datab
 	$product = $client->products()->find($id);
 
 
+#### Find a product
+
+You have more than one way to find a product. Here are the valid examples:
+
+	/** @var \Abobereich\ApiClient\Models\Product $product */
+	$product = $client->products()->findById(1234);
+    $product = $client->products()->findBySlug('product-slug');
+    $product = $client->products()->findByName('John Doe');
+
+The method `findByName` is not recommended for finding one product. But for testdata it is useful too.
+
+
 ### Plans
 
 The plans always depends on products. So you have to set the product for the plans context.
