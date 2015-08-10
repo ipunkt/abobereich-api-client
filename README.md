@@ -151,3 +151,14 @@ The plans always depends on products. So you have to set the product for the pla
 	$plan = $client->plans($product)->find($id);
 
 
+#### Find a plan for a product
+
+You have more than one way to find a plan. Here are the valid examples:
+
+	/** @var array|\Abobereich\ApiClient\Models\Plan $plan */
+    $plan = $client->plans($product)->findById($id);
+    $plan = $client->plans($product)->findByIdentifier('YOUR_ACCOUNT_IDENTIFIER');
+    $plan = $client->plans($product)->findBySlug('plan-slug');
+    $plan = $client->plans($product)->findByName('PLAN 123');
+
+The method `findByName` is not recommended for finding one plan. But for testdata it is useful too.

@@ -58,6 +58,68 @@ class Plans extends Context
     }
 
     /**
+     * alias for find()
+     *
+     * @param int $id
+     *
+     * @return \Abobereich\ApiClient\Models\Plan
+     */
+    public function findById($id)
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * find a plan by attribute
+     *
+     * @param string $attribute
+     * @param string $value
+     *
+     * @return \Abobereich\ApiClient\Models\Model
+     */
+    public function findBy($attribute, $value)
+    {
+        return $this->get('/api/products/' . $this->productId . '/plans/0?'.$attribute.'=' . rawurlencode($value), 'plan');
+    }
+
+    /**
+     * find a plan by slug
+     *
+     * @param string $slug
+     *
+     * @return \Abobereich\ApiClient\Models\Model
+     */
+    public function findBySlug($slug)
+    {
+        return $this->findBy('slug', $slug);
+    }
+
+    /**
+     * find a plan by name
+     * - this is not recommended for finding exact one plan
+     *
+     * @param string $name
+     *
+     * @return \Abobereich\ApiClient\Models\Model
+     */
+    public function findByName($name)
+    {
+        return $this->findBy('name', $name);
+    }
+
+    /**
+     * find a plan by "external_identifier"
+     *
+     * @param string $identifier
+     *
+     * @return \Abobereich\ApiClient\Models\Model
+     */
+    public function findByIdentifier($identifier)
+    {
+        return $this->findBy('external_identifier', $identifier);
+    }
+
+    /**
      * returns a transformer
      *
      * @return Transformer|PlanTransformer
