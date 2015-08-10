@@ -5,6 +5,7 @@ namespace Abobereich\ApiClient;
 use Abobereich\ApiClient\Contexts\Accounts;
 use Abobereich\ApiClient\Contexts\Plans;
 use Abobereich\ApiClient\Contexts\Products;
+use Abobereich\ApiClient\Contexts\Subscriptions;
 use Abobereich\ApiClient\Contexts\Tenants;
 use Abobereich\ApiClient\Models\Product;
 
@@ -80,5 +81,15 @@ class Client
     {
         return (new Plans($this->client))
             ->setProduct($product);
+    }
+
+    /**
+     * returns the subscriptions context
+     *
+     * @return \Abobereich\ApiClient\Contexts\Subscriptions
+     */
+    public function subscriptions()
+    {
+        return new Subscriptions($this->client);
     }
 }

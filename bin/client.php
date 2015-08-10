@@ -63,3 +63,11 @@ try {
 } catch (\Abobereich\ApiClient\Exceptions\ModelNotUpdatedException $e) {
     echo 'Model NOT UPDATED, Error: ' . $e->getMessage() . PHP_EOL;
 }
+
+//  get all subscriptions
+$subscriptions = $client->subscriptions()->all();
+foreach ($subscriptions as $subscription)
+{
+    echo $subscription->getSubscriptionNumber() . ' - ' . $subscription->getPlanId() . PHP_EOL;
+}
+
