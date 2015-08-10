@@ -199,3 +199,19 @@ A subscription is the contract an account can have. There is a difference betwee
 	/** @var array|\Abobereich\ApiClient\Models\Subscription[] $subscriptions */
 	$subscriptions = $client->subscriptions()->allForBeingSubscriber($account);
 
+
+#### Getting a subscription
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription $subscription */
+	$subscription = $client->subscriptions()->find($id);
+
+
+#### Find subscriptions with other properties
+
+You have more than one way to find a subscription. Here are the valid examples:
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription $subscription */
+    $subscription = $client->subscriptions()->findById($id);
+    $subscription = $client->subscriptions()->findByNumber('PQXNC-KWFXO-JVUYO-03642');
+    $subscription = $client->subscriptions()->findByIdentifier('EXTERNAL_Identifier-FOR-subscRiptIOn);
+

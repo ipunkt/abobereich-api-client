@@ -68,6 +68,67 @@ class Subscriptions extends Context
     }
 
     /**
+     * finds a subscription by id
+     *
+     * @param int $id
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function find($id)
+    {
+        return $this->get('/api/subscriptions/' . intval($id), 'subscription');
+    }
+
+    /**
+     * alias for find();
+     *
+     * @param int $id
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function findById($id)
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * find a subscription by attribute value
+     *
+     * @param string $attribute
+     * @param string $value
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    protected function findBy($attribute, $value)
+    {
+        return $this->get('/api/subscriptions/0?' . $attribute . '=' . rawurlencode($value), 'subscription');
+    }
+
+    /**
+     * find a subscription by its number
+     *
+     * @param string $number
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function findByNumber($number)
+    {
+        return $this->findBy('subscription_number', $number);
+    }
+
+    /**
+     * find a subscription by its identifier
+     *
+     * @param string $identifier
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function findByIdentifier($identifier)
+    {
+        return $this->findBy('external_identifier', $identifier);
+    }
+
+    /**
      * returns a transformer
      *
      * @return Transformer
