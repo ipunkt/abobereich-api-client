@@ -36,6 +36,68 @@ class Accounts extends Context
     }
 
     /**
+     * alias for find
+     *
+     * @param int $id
+     *
+     * @return \Abobereich\ApiClient\Models\Account
+     */
+    public function findById($id)
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * find account by attribute
+     *
+     * @param string $attribute
+     * @param string $value
+     *
+     * @return \Abobereich\ApiClient\Models\Model
+     */
+    public function findBy($attribute, $value)
+    {
+        return $this->get('/api/accounts/0?'.$attribute.'=' . rawurlencode($value), 'account');
+    }
+
+    /**
+     * find by "external_identifier" on abobereich
+     *
+     * @param string $identifier
+     *
+     * @return \Abobereich\ApiClient\Models\Account
+     */
+    public function findByIdentifier($identifier)
+    {
+        return $this->findBy('external_identifier', $identifier);
+    }
+
+    /**
+     * find by "email" on abobereich
+     *
+     * @param string $email
+     *
+     * @return \Abobereich\ApiClient\Models\Account
+     */
+    public function findByEmail($email)
+    {
+        return $this->findBy('email', $email);
+    }
+
+    /**
+     * find by "name" on abobereich
+     * - we do not recommend using this method to find exact one account
+     *
+     * @param string $name
+     *
+     * @return \Abobereich\ApiClient\Models\Account
+     */
+    public function findByName($name)
+    {
+        return $this->findBy('name', $name);
+    }
+
+    /**
      * stores a new account
      *
      * @param \Abobereich\ApiClient\Models\Account $account

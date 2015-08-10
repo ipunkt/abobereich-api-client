@@ -47,6 +47,18 @@ The api client has different contexts, so you can divide api parts into separate
 	/** @var \Abobereich\ApiClient\Models\Account $account */
 	$account = $client->accounts()->find($id);
 
+#### Find an account
+
+You have more than one way to find an account. Here are the valid examples:
+
+	/** @var \Abobereich\ApiClient\Models\Account $account */
+	$account = $client->accounts()->findById(1234);
+    $account = $client->accounts()->findByIdentifier('YOUR_ACCOUNT_IDENTIFIER');
+    $account = $client->accounts()->findByEmail('name@mail.com');
+    $account = $client->accounts()->findByName('John Doe');
+
+The method `findByName` is not recommended for finding one account. But for testdata it is useful too.
+
 
 #### Create an account
 
