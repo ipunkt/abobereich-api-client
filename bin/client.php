@@ -71,3 +71,14 @@ foreach ($subscriptions as $subscription)
     echo $subscription->getSubscriptionNumber() . ' - ' . $subscription->getPlanId() . PHP_EOL;
 }
 
+$subscriptions = $client->subscriptions()->allForProduct(2);
+foreach ($subscriptions as $subscription)
+{
+    echo $subscription->getSubscriptionNumber() . ' - ' . $subscription->getPlanId() . PHP_EOL;
+}
+
+$subscriptions = $client->subscriptions()->allForBeingSubscriber(30);
+foreach ($subscriptions as $subscription)
+{
+    echo $subscription->getSubscriptionNumber() . ' - ' . $subscription->getPlanId() . PHP_EOL;
+}

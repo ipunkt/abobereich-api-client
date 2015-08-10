@@ -162,3 +162,40 @@ You have more than one way to find a plan. Here are the valid examples:
     $plan = $client->plans($product)->findByName('PLAN 123');
 
 The method `findByName` is not recommended for finding one plan. But for testdata it is useful too.
+
+
+### Subscriptions
+
+A subscription is the contract an account can have. There is a difference between having a contract (subscription) and
+ being the beneficiary (subscriber) of the subscriptions benefits.
+
+
+#### Getting all subscriptions (unfiltered)
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription[] $subscriptions */
+	$subscriptions = $client->subscriptions()->all();
+
+
+#### Getting all subscriptions for a product
+
+	$product = 1;// or @var \Abobereich\ApiClient\Models\Product $product
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription[] $subscriptions */
+	$subscriptions = $client->subscriptions()->allForProduct($product);
+
+
+#### Getting all subscriptions for an account (contractor)
+
+	$account = 1;// or @var \Abobereich\ApiClient\Models\Account $account
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription[] $subscriptions */
+	$subscriptions = $client->subscriptions()->allForAccount($account);
+
+
+#### Getting all subscriptions for a subscription subscriber (account is beneficiary)
+
+	$account = 1;// or @var \Abobereich\ApiClient\Models\Account $account
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscription[] $subscriptions */
+	$subscriptions = $client->subscriptions()->allForBeingSubscriber($account);
+

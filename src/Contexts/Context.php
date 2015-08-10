@@ -50,7 +50,7 @@ abstract class Context
      * @param string $uri
      * @param string $indexOfResponse
      *
-     * @return Model
+     * @return Model|null
      */
     protected function get($uri, $indexOfResponse = 'data')
     {
@@ -61,7 +61,7 @@ abstract class Context
             return $this->transformer()->transform($result[$indexOfResponse]);
         }
 
-        throw new \InvalidArgumentException('No ' . $indexOfResponse . ' index found in response');
+        return null;
     }
 
     /**
@@ -81,7 +81,7 @@ abstract class Context
             return $this->transformer()->transformCollection($result[$indexOfResponse]);
         }
 
-        throw new \InvalidArgumentException('No ' . $indexOfResponse . ' index found in response');
+        return [];
     }
 
     /**
