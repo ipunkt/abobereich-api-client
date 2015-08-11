@@ -3,8 +3,10 @@
 namespace Abobereich\ApiClient\Contexts;
 
 use Abobereich\ApiClient\Models\Account;
+use Abobereich\ApiClient\Models\Plan;
 use Abobereich\ApiClient\Models\Product;
-use Abobereich\ApiClient\Models\Subscription;
+use Abobereich\ApiClient\Resolver\AccountIdentificationResolver;
+use Abobereich\ApiClient\Resolver\PlanIdentificationResolver;
 use Abobereich\ApiClient\Transformers\SubscriptionTransformer;
 use Abobereich\ApiClient\Transformers\Transformer;
 
@@ -126,6 +128,46 @@ class Subscriptions extends Context
     public function findByIdentifier($identifier)
     {
         return $this->findBy('external_identifier', $identifier);
+    }
+
+    /**
+     * creates a subscription without a contractor
+     *
+     * @param \Abobereich\ApiClient\Models\Plan $plan
+     * @param \DateTime|null $startDate
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function createPreliminarySubscription(Plan $plan, \DateTime $startDate = null)
+    {
+        return $this->create($plan, null, $startDate);
+    }
+
+    /**
+     * create a subscription for a plan and set a contractor (optional)
+     *
+     * @param \Abobereich\ApiClient\Models\Plan $plan
+     * @param \Abobereich\ApiClient\Models\Account|null $account
+     * @param \DateTime|null $startDate
+     * @param bool $accountIsSubscriberToo
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription|null
+     */
+    public function create(Plan $plan, Account $account = null, \DateTime $startDate = null, $accountIsSubscriberToo = true)
+    {
+        $data = ['account_is_subscriber_too' => $accountIsSubscriberToo];
+
+        $data = (new PlanIdentificationResolver())->resolve($plan, $data);
+
+        if (null !== $account) {
+            $data = (new AccountIdentificationResolver())->resolve($account, $data);
+        }
+
+        if (null !== $startDate) {
+            $data['start_date'] = $startDate->format('Y-m-d H:i:s');
+        }
+
+        return $this->post('/api/subscriptions', $data, 'subscription');
     }
 
     /**
