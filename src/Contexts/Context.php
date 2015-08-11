@@ -93,7 +93,7 @@ abstract class Context
      *
      * @return Account|null
      */
-    protected function create($uri, Model $model, $indexOfResponse = 'data')
+    protected function post($uri, Model $model, $indexOfResponse = 'data')
     {
         /**
          * reset id, created_at and updated_at to null, because a new model does not have any valid values there

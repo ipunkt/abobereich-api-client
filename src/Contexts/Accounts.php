@@ -106,7 +106,7 @@ class Accounts extends Context
      */
     public function store(Account $account)
     {
-        return $this->create('/api/accounts', $account, 'account');
+        return $this->post('/api/accounts', $account, 'account');
     }
 
     /**
