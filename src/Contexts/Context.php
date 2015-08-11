@@ -88,17 +88,19 @@ abstract class Context
      * creates a model via api
      *
      * @param string $uri
-     * @param \Abobereich\ApiClient\Models\Model $model
+     * @param \Abobereich\ApiClient\Models\Model|array $model
      * @param string $indexOfResponse
      *
      * @return Account|null
      */
-    protected function post($uri, Model $model, $indexOfResponse = 'data')
+    protected function post($uri, $model, $indexOfResponse = 'data')
     {
         /**
          * reset id, created_at and updated_at to null, because a new model does not have any valid values there
          */
-        $model->setId(null)->setCreatedAt(null)->setUpdatedAt(null);
+        if ($model instanceof Model) {
+            $model->setId(null)->setCreatedAt(null)->setUpdatedAt(null);
+        }
 
         $response = $this->postRequest($uri, $model);
         $result = $this->toArray($response);
@@ -175,7 +177,7 @@ abstract class Context
      * post a request
      *
      * @param string $uri
-     * @param Model $data
+     * @param Model|array $data
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      *
