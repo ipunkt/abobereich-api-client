@@ -75,7 +75,7 @@ class Plans extends Context
      * @param string $attribute
      * @param string $value
      *
-     * @return \Abobereich\ApiClient\Models\Model
+     * @return \Abobereich\ApiClient\Models\Plan
      */
     protected function findBy($attribute, $value)
     {
@@ -88,7 +88,7 @@ class Plans extends Context
      *
      * @param string $slug
      *
-     * @return \Abobereich\ApiClient\Models\Model
+     * @return \Abobereich\ApiClient\Models\Plan
      */
     public function findBySlug($slug)
     {
@@ -101,7 +101,7 @@ class Plans extends Context
      *
      * @param string $name
      *
-     * @return \Abobereich\ApiClient\Models\Model
+     * @return \Abobereich\ApiClient\Models\Plan
      */
     public function findByName($name)
     {
@@ -113,7 +113,7 @@ class Plans extends Context
      *
      * @param string $identifier
      *
-     * @return \Abobereich\ApiClient\Models\Model
+     * @return \Abobereich\ApiClient\Models\Plan
      */
     public function findByIdentifier($identifier)
     {
