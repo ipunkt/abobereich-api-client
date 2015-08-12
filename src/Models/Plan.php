@@ -59,34 +59,6 @@ class Plan extends Model
     protected $subscription_number_format;
 
     /**
-     * billing period
-     *
-     * @var string
-     */
-    protected $billing_period;
-
-    /**
-     * billing period count
-     *
-     * @var int
-     */
-    protected $billing_period_count;
-
-    /**
-     * billing period starts
-     *
-     * @var string
-     */
-    protected $billing_period_start;
-
-    /**
-     * billing calculation method
-     *
-     * @var string
-     */
-    protected $billing_calculation;
-
-    /**
      * create alignment
      *
      * @var string
@@ -203,46 +175,6 @@ class Plan extends Model
     public function getSubscriptionNumberFormat()
     {
         return $this->subscription_number_format;
-    }
-
-    /**
-     * returns BillingPeriod
-     *
-     * @return string
-     */
-    public function getBillingPeriod()
-    {
-        return $this->billing_period;
-    }
-
-    /**
-     * returns BillingPeriodCount
-     *
-     * @return int
-     */
-    public function getBillingPeriodCount()
-    {
-        return $this->billing_period_count;
-    }
-
-    /**
-     * returns BillingPeriodStart
-     *
-     * @return string
-     */
-    public function getBillingPeriodStart()
-    {
-        return $this->billing_period_start;
-    }
-
-    /**
-     * returns BillingCalculation
-     *
-     * @return string
-     */
-    public function getBillingCalculation()
-    {
-        return $this->billing_calculation;
     }
 
     /**
@@ -389,50 +321,6 @@ class Plan extends Model
     public function setSubscriptionNumberFormat($subscription_number_format)
     {
         $this->subscription_number_format = $subscription_number_format;
-        return $this;
-    }
-
-    /**
-     * @param string $billing_period
-     *
-     * @return Plan
-     */
-    public function setBillingPeriod($billing_period)
-    {
-        $this->billing_period = $billing_period;
-        return $this;
-    }
-
-    /**
-     * @param int $billing_period_count
-     *
-     * @return Plan
-     */
-    public function setBillingPeriodCount($billing_period_count)
-    {
-        $this->billing_period_count = $billing_period_count;
-        return $this;
-    }
-
-    /**
-     * @param string $billing_period_start
-     *
-     * @return Plan
-     */
-    public function setBillingPeriodStart($billing_period_start)
-    {
-        $this->billing_period_start = $billing_period_start;
-        return $this;
-    }
-
-    /**
-     * @param string $billing_calculation
-     *
-     * @return Plan
-     */
-    public function setBillingCalculation($billing_calculation)
-    {
-        $this->billing_calculation = $billing_calculation;
         return $this;
     }
 
