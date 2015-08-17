@@ -38,6 +38,7 @@ class PlanTransformer extends Transformer
             ->setValidFrom($item['valid_from'])
             ->setValidUntil($item['valid_until'])
             ->setCreatedAt($item['created_at'])
-            ->setUpdatedAt($item['updated_at']);
+            ->setUpdatedAt($item['updated_at'])
+            ->setTags($item['tag_names']);
     }
 }

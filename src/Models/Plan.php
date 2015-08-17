@@ -108,6 +108,13 @@ class Plan extends Model
     protected $valid_until;
 
     /**
+     * plan tags
+     *
+     * @var array
+     */
+    protected $tags = [];
+
+    /**
      * returns ProductId
      *
      * @return int
@@ -408,6 +415,42 @@ class Plan extends Model
         }
 
         $this->valid_until = $valid_until;
+        return $this;
+    }
+
+    /**
+     * returns Tags
+     *
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * returns Tags as string
+     *
+     * @param string $glue
+     *
+     * @return string
+     */
+    public function getTagsAsString($glue = ', ')
+    {
+        return implode($glue, $this->tags);
+    }
+
+    /**
+     * sets tags
+     *
+     * @param array $tags
+     *
+     * @return $this
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
         return $this;
     }
 }
