@@ -46,6 +46,21 @@ class Plans extends Context
     }
 
     /**
+     * returns all plans for a product and tag(s)
+     *
+     * @param string|array $tag
+     *
+     * @return \Abobereich\ApiClient\Models\Plan[]|array
+     */
+    public function allByTag($tag)
+    {
+        $tags = array_map('rawurlencode', (array)$tag);
+        $query = 'tags[]=' . implode('&tags[]=', $tags);
+
+        return $this->index('/api/products/' . $this->productId . '/plans?' . $query, 'plans');
+    }
+
+    /**
      * returns a single plan for a product
      *
      * @param int $id

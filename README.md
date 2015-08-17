@@ -145,6 +145,12 @@ The plans always depends on products. So you have to set the product for the pla
 	$plans = $client->plans($product)->all();
 
 
+#### Getting all plans for a product with one or more tags associated
+
+	/** @var array|\Abobereich\ApiClient\Models\Plan[] $plans */
+	$plans = $client->plans($product)->allByTag('TAG');
+
+
 #### Getting a plan for a product
 
 	/** @var array|\Abobereich\ApiClient\Models\Plan $plan */

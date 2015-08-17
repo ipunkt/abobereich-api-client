@@ -34,6 +34,10 @@ if (isset($products[0])) {
 
 }
 
+echo 'Plans with tag FREE for Product ' . $products[0]->getName() . PHP_EOL;
+foreach ($client->plans($products[0])->allByTag('FREE') as $plan) {
+    echo $plan->getId() . ' - ' . $plan->getTagsAsString() . PHP_EOL;
+}
 
 //  create an account
 $account = new \Abobereich\ApiClient\Models\Account();
