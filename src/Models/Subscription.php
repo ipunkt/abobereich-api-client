@@ -52,6 +52,13 @@ class Subscription extends Model
     protected $start_date;
 
     /**
+     * next billing date for the subscription
+     *
+     * @var \DateTime
+     */
+    protected $next_billing_date;
+
+    /**
      * subscription is charged through
      *
      * @var \DateTime|null
@@ -78,13 +85,13 @@ class Subscription extends Model
     /**
      * sets plan_id
      *
-     * @param int|null $plan_id
+     * @param Plan|int|null $plan
      *
      * @return $this
      */
-    public function setPlanId($plan_id)
+    public function setPlanId($plan)
     {
-        $this->plan_id = $plan_id;
+        $this->plan_id = ($plan instanceof Plan) ? $plan->getId() : $plan;
         return $this;
     }
 
@@ -147,13 +154,13 @@ class Subscription extends Model
     /**
      * sets account_id
      *
-     * @param int|null $account_id
+     * @param Account|int|null $account
      *
      * @return $this
      */
-    public function setAccountId($account_id)
+    public function setAccountId($account)
     {
-        $this->account_id = $account_id;
+        $this->account_id = ($account instanceof Account) ? $account->getId() : $account;
         return $this;
     }
 
@@ -204,6 +211,33 @@ class Subscription extends Model
         }
 
         $this->start_date = $start_date;
+        return $this;
+    }
+
+    /**
+     * returns next_billing_date
+     *
+     * @return \DateTime
+     */
+    public function getNextBillingDate()
+    {
+        return $this->start_date;
+    }
+
+    /**
+     * sets next_billing_date
+     *
+     * @param \DateTime|string $next_billing_date
+     *
+     * @return $this
+     */
+    public function setNextBillingDate($next_billing_date)
+    {
+        if (null !== $next_billing_date && ! $next_billing_date instanceof \DateTime) {
+            $next_billing_date = \DateTime::createFromFormat('Y-m-d H:i:s', $next_billing_date);
+        }
+
+        $this->next_billing_date = $next_billing_date;
         return $this;
     }
 

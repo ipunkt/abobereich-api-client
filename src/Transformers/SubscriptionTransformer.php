@@ -30,6 +30,7 @@ class SubscriptionTransformer extends Transformer
             ->setPhaseId($item['phase_id'])
             ->setPlanId($item['plan_id'])
             ->setStartDate($item['start_date'])
+            ->setNextBillingDate($item['next_billing_date'])
             ->setSubscriptionNumber($item['subscription_number'])
             ->setCreatedAt($item['created_at'])
             ->setUpdatedAt($item['updated_at']);
