@@ -247,3 +247,48 @@ You have to fetch the stored subscription model through the api.
     $subscription = $client->subscriptions()->save($subscription);  // or $client->subscriptions()->update($subscription);
 
 
+### Subscribers
+
+Each subscription can have one or more subscribers. You can define the concrete number at the plans subscription 
+ subscribers count. A subscriber consumes the benefits of a subscription. It must not be the contractor of the 
+ subscription but it can be. For example you charge a family subscription contract and the contractor is you, but the 
+ subscribers are your family members.
+
+The subscriber always depends on subscriptions. So you have to set the subscription for the subscribers context.
+
+	$client->subscribers($subscription);    // the subscribers context
+
+	//  or later on
+	$subscriptionsContext->setSubscription($subscription);    // set another subscription for the subscribers context
+
+
+#### Getting all subscribers for a subscription
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscriber[] $subscribers */
+	$subscribers = $client->subscribers($subscription)->all();
+
+
+#### Getting a subscriber for a subscription
+
+	/** @var array|\Abobereich\ApiClient\Models\Subscriber $subscriber */
+	$subscriber = $client->subscribers($subscription)->find($id);
+
+
+#### Create a subscriber
+
+First you have to create a model instance and set the values. A subscriber has a connection to an account and a 
+ subscription. The subscription is already set via the subscribers context, but the related account is missing.
+
+	$account = $client->accounts()->find(1);
+	$subscriber = new \Abobereich\ApiClient\Models\Subscriber();
+	$subscriber->setAccountId($account);
+
+	try {
+		$subscriber = $client->subscribers($subscription)->store($subscriber);
+	    echo 'Model created with ID: ' . $subscriber->getId() . PHP_EOL;
+	} catch (\Abobereich\ApiClient\Exceptions\InvalidRequestDataException $e) {
+		echo $e->getMessage() . ': ' . implode(', ', $e->getErrors());
+	} catch (\Abobereich\ApiClient\Exceptions\ModelNotCreatedException $e) {
+		echo 'Model NOT CREATED, Error: ' . $e->getMessage() . PHP_EOL;
+	}
+

@@ -86,3 +86,9 @@ foreach ($subscriptions as $subscription)
 {
     echo $subscription->getSubscriptionNumber() . ' - ' . $subscription->getPlanId() . PHP_EOL;
 }
+
+$subscriber = new \Abobereich\ApiClient\Models\Subscriber();
+$subscriber->setAccountId($account);
+$client->subscribers($subscription)->store($subscriber);
+
+var_dump($client->subscribers($subscription)->all());

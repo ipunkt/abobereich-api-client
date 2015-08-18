@@ -5,7 +5,6 @@ namespace Abobereich\ApiClient\Contexts;
 use Abobereich\ApiClient\Models\Product;
 use Abobereich\ApiClient\Transformers\PlanTransformer;
 use Abobereich\ApiClient\Transformers\Transformer;
-use GuzzleHttp\Client;
 
 /**
  * Class Plans

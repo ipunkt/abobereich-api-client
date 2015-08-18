@@ -99,7 +99,7 @@ abstract class Context
          * reset id, created_at and updated_at to null, because a new model does not have any valid values there
          */
         if ($model instanceof Model) {
-            $model->setId(null)->setCreatedAt(null)->setUpdatedAt(null);
+            $model->setId(null);
         }
 
         $response = $this->postRequest($uri, $model);
@@ -180,9 +180,9 @@ abstract class Context
      * @param Model|array $data
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
-     *
      * @throws \Abobereich\ApiClient\Exceptions\InvalidRequestDataException
      * @throws \Abobereich\ApiClient\Exceptions\ModelNotCreatedException
+     * @throws \Abobereich\ApiClient\Exceptions\RequestNotSuccessfulException
      */
     private function postRequest($uri, $data)
     {
@@ -191,6 +191,8 @@ abstract class Context
             $response = $this->client->send($request);
 
             return $response;
+        } catch (ServerException $e) {
+            throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
         } catch (ClientException $e) {
             $message = 'Model could not be created';
 

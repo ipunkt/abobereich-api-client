@@ -5,9 +5,11 @@ namespace Abobereich\ApiClient;
 use Abobereich\ApiClient\Contexts\Accounts;
 use Abobereich\ApiClient\Contexts\Plans;
 use Abobereich\ApiClient\Contexts\Products;
+use Abobereich\ApiClient\Contexts\Subscribers;
 use Abobereich\ApiClient\Contexts\Subscriptions;
 use Abobereich\ApiClient\Contexts\Tenants;
 use Abobereich\ApiClient\Models\Product;
+use Abobereich\ApiClient\Models\Subscription;
 
 /**
  * Class Client
@@ -91,5 +93,18 @@ class Client
     public function subscriptions()
     {
         return new Subscriptions($this->client);
+    }
+
+    /**
+     * returns the subscribers context
+     *
+     * @param Subscription|int $subscription
+     *
+     * @return \Abobereich\ApiClient\Contexts\Subscribers
+     */
+    public function subscribers($subscription)
+    {
+        return (new Subscribers($this->client))
+            ->setSubscription($subscription);
     }
 }
