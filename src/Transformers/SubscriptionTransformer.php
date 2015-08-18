@@ -21,7 +21,7 @@ class SubscriptionTransformer extends Transformer
      */
     public function transform($item)
     {
-        return (new Subscription())
+        return (new Subscription(true))
             ->setId($item['id'])
             ->setAccountId($item['account_id'])
             ->setChargedThroughDate($item['charged_through_date'])

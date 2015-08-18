@@ -21,7 +21,7 @@ class TenantTransformer extends Transformer
      */
     public function transform($item)
     {
-        return (new Tenant())
+        return (new Tenant(true))
             ->setId($item['id'])
             ->setName($item['name'])
             ->setCreatedAt($item['created_at'])

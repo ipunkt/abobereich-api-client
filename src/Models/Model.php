@@ -35,6 +35,31 @@ abstract class Model implements JsonSerializable
     protected $updated_at;
 
     /**
+     * does the model exists on server
+     *
+     * @var bool
+     */
+    private $exists;
+
+    /**
+     * @param bool $exists
+     */
+    public function __construct($exists = false)
+    {
+        $this->exists = $exists;
+    }
+
+    /**
+     * returns the exists flag
+     *
+     * @return bool
+     */
+    public function exists()
+    {
+        return $this->exists;
+    }
+
+    /**
      * returns Id
      *
      * @return int

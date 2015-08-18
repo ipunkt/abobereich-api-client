@@ -21,7 +21,7 @@ class PlanTransformer extends Transformer
      */
     public function transform($item)
     {
-        return (new Plan())
+        return (new Plan(true))
             ->setId($item['id'])
             ->setProductId($item['product_id'])
             ->setVariantOfPlan($item['variant_of_plan'])

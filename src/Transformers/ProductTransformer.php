@@ -21,7 +21,7 @@ class ProductTransformer extends Transformer
      */
     public function transform($item)
     {
-        return (new Product())
+        return (new Product(true))
             ->setId($item['id'])
             ->setDefaultPlan($item['default_plan'])
             ->setName($item['name'])

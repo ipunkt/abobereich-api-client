@@ -20,7 +20,7 @@ class AccountTransformer extends Transformer
      */
     public function transform($item)
     {
-        return (new Account())
+        return (new Account(true))
             ->setId($item['id'])
             ->setName($item['name'])
             ->setEmail($item['email'])
