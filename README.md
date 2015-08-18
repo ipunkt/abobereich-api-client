@@ -221,3 +221,29 @@ You have more than one way to find a subscription. Here are the valid examples:
     $subscription = $client->subscriptions()->findByNumber('PQXNC-KWFXO-JVUYO-03642');
     $subscription = $client->subscriptions()->findByIdentifier('EXTERNAL_Identifier-FOR-subscRiptIOn);
 
+
+#### Create a new subscription
+
+You have to create and store a subscription model through the api.
+
+	$account = $client->accounts()->findByEmail('john@doe.com');
+	$plan = $client->plans($product)->findBySlug($slug);
+	
+	$subscription = new \Abobereich\ApiClient\Models\Subscription();
+    $subscription->setAccountId($account)
+        ->setSubscriptionNumber('1234-ABO-YXCE')
+        ->setPlanId($plan);
+    
+    $subscription = $client->subscriptions()->save($subscription);  // or $client->subscriptions()->store($subscription);
+
+
+#### Update an existing subscription
+
+You have to fetch the stored subscription model through the api.
+
+	$subscription = $client->subscriptions()->findByNumber('1234-ABO-YXCE);
+    $subscription->setNextBillingDate(date('Y-m-d H:i:s'));
+    
+    $subscription = $client->subscriptions()->save($subscription);  // or $client->subscriptions()->update($subscription);
+
+

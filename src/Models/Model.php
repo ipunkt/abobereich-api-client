@@ -159,6 +159,10 @@ abstract class Model implements JsonSerializable
 
             $value = $prop->getValue($this);
             if (null !== $value) {
+                if ($value instanceof \DateTime) {
+                    $value = $value->format('Y-m-d H:i:s');
+                }
+
                 $result[$prop->getName()] = $value;
             }
 

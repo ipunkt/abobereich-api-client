@@ -21,7 +21,7 @@ class Subscription extends Model
      *
      * @var int|null
      */
-    protected $phase_id;
+    protected $current_phase;
 
     /**
      * subscription number
@@ -100,21 +100,21 @@ class Subscription extends Model
      *
      * @return int|null
      */
-    public function getPhaseId()
+    public function getCurrentPhase()
     {
-        return $this->phase_id;
+        return $this->current_phase;
     }
 
     /**
      * sets phase_id
      *
-     * @param int|null $phase_id
+     * @param int|null $current_phase
      *
      * @return $this
      */
-    public function setPhaseId($phase_id)
+    public function setCurrentPhase($current_phase)
     {
-        $this->phase_id = $phase_id;
+        $this->current_phase = $current_phase;
         return $this;
     }
 

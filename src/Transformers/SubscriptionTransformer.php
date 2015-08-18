@@ -23,15 +23,15 @@ class SubscriptionTransformer extends Transformer
     {
         return (new Subscription(true))
             ->setId($item['id'])
-            ->setAccountId($item['account_id'])
-            ->setChargedThroughDate($item['charged_through_date'])
-            ->setEndOfTerm($item['end_of_term'])
-            ->setExternalIdentifier($item['external_identifier'])
-            ->setPhaseId($item['phase_id'])
             ->setPlanId($item['plan_id'])
+            ->setCurrentPhase($item['current_phase'])
+            ->setSubscriptionNumber($item['subscription_number'])
+            ->setAccountId($item['account_id'])
+            ->setExternalIdentifier($item['external_identifier'])
             ->setStartDate($item['start_date'])
             ->setNextBillingDate($item['next_billing_date'])
-            ->setSubscriptionNumber($item['subscription_number'])
+            ->setChargedThroughDate($item['charged_through_date'])
+            ->setEndOfTerm($item['end_of_term'])
             ->setCreatedAt($item['created_at'])
             ->setUpdatedAt($item['updated_at']);
     }

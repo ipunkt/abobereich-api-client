@@ -3,10 +3,8 @@
 namespace Abobereich\ApiClient\Contexts;
 
 use Abobereich\ApiClient\Models\Account;
-use Abobereich\ApiClient\Models\Plan;
 use Abobereich\ApiClient\Models\Product;
-use Abobereich\ApiClient\Resolver\AccountIdentificationResolver;
-use Abobereich\ApiClient\Resolver\PlanIdentificationResolver;
+use Abobereich\ApiClient\Models\Subscription;
 use Abobereich\ApiClient\Transformers\SubscriptionTransformer;
 use Abobereich\ApiClient\Transformers\Transformer;
 
@@ -131,43 +129,47 @@ class Subscriptions extends Context
     }
 
     /**
-     * creates a subscription without a contractor
+     * saves a subscription
      *
-     * @param \Abobereich\ApiClient\Models\Plan $plan
-     * @param \DateTime|null $startDate
+     * @param \Abobereich\ApiClient\Models\Subscription $subscription
      *
-     * @return \Abobereich\ApiClient\Models\Subscription|null
+     * @return \Abobereich\ApiClient\Models\Subscription
      */
-    public function createPreliminarySubscription(Plan $plan, \DateTime $startDate = null)
+    public function save(Subscription $subscription)
     {
-        return $this->create($plan, null, $startDate);
+        if ($subscription->exists()) {
+            return $this->update($subscription);
+        }
+
+        return $this->store($subscription);
     }
 
     /**
-     * create a subscription for a plan and set a contractor (optional)
+     * stores a new account
      *
-     * @param \Abobereich\ApiClient\Models\Plan $plan
-     * @param \Abobereich\ApiClient\Models\Account|null $account
-     * @param \DateTime|null $startDate
-     * @param bool $accountIsSubscriberToo
+     * @param \Abobereich\ApiClient\Models\Subscription $subscription
      *
-     * @return \Abobereich\ApiClient\Models\Subscription|null
+     * @return \Abobereich\ApiClient\Models\Subscription
      */
-    public function create(Plan $plan, Account $account = null, \DateTime $startDate = null, $accountIsSubscriberToo = true)
+    public function store(Subscription $subscription)
     {
-        $data = ['account_is_subscriber_too' => $accountIsSubscriberToo];
+        return $this->post('/api/subscriptions', $subscription, 'subscription');
+    }
 
-        $data = (new PlanIdentificationResolver())->resolve($plan, $data);
-
-        if (null !== $account) {
-            $data = (new AccountIdentificationResolver())->resolve($account, $data);
+    /**
+     * updates an account
+     *
+     * @param \Abobereich\ApiClient\Models\Subscription $subscription
+     *
+     * @return \Abobereich\ApiClient\Models\Subscription
+     */
+    public function update(Subscription $subscription)
+    {
+        if (null === $subscription->getId()) {
+            throw new \InvalidArgumentException('You need an id for updating your model');
         }
 
-        if (null !== $startDate) {
-            $data['start_date'] = $startDate->format('Y-m-d H:i:s');
-        }
-
-        return $this->post('/api/subscriptions', $data, 'subscription');
+        return $this->put('/api/subscriptions/' . $subscription->getId(), $subscription, 'subscription');
     }
 
     /**
