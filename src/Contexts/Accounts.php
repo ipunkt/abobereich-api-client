@@ -98,11 +98,27 @@ class Accounts extends Context
     }
 
     /**
+     * saves a subscription
+     *
+     * @param \Abobereich\ApiClient\Models\Account $account
+     *
+     * @return \Abobereich\ApiClient\Models\Account
+     */
+    public function save(Account $account)
+    {
+        if ($account->exists()) {
+            return $this->update($account);
+        }
+
+        return $this->store($account);
+    }
+
+    /**
      * stores a new account
      *
      * @param \Abobereich\ApiClient\Models\Account $account
      *
-     * @return Account
+     * @return \Abobereich\ApiClient\Models\Account
      */
     public function store(Account $account)
     {
@@ -114,7 +130,7 @@ class Accounts extends Context
      *
      * @param \Abobereich\ApiClient\Models\Account $account
      *
-     * @return Account
+     * @return \Abobereich\ApiClient\Models\Account
      *
      * @throws \InvalidArgumentException when model has no id
      */
