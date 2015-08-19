@@ -3,6 +3,7 @@
 namespace Abobereich\ApiClient;
 
 use Abobereich\ApiClient\Contexts\Accounts;
+use Abobereich\ApiClient\Contexts\Blocks;
 use Abobereich\ApiClient\Contexts\Plans;
 use Abobereich\ApiClient\Contexts\Products;
 use Abobereich\ApiClient\Contexts\Subscribers;
@@ -106,5 +107,17 @@ class Client
     {
         return (new Subscribers($this->client))
             ->setSubscription($subscription);
+    }
+
+    /**
+     * returns blocks context
+     *
+     * @param Product|int $product
+     * @return \Abobereich\ApiClient\Contexts\Blocks
+     */
+    public function blocks($product)
+    {
+        return (new Blocks($this->client))
+            ->setProduct($product);
     }
 }

@@ -292,3 +292,66 @@ First you have to create a model instance and set the values. A subscriber has a
 		echo 'Model NOT CREATED, Error: ' . $e->getMessage() . PHP_EOL;
 	}
 
+
+### Blocks
+
+VERY EXPERIMENTAL!!!
+
+The blocks api is for marketing use cases. A block is a text or html block. It is related to a product and has its 
+ value depending on a plan. So you can make your price-table dynamic. You can create an unlimited amount of text blocks 
+ at abobereich. All blocks can have a language. For your frontend rendering simply retrieve all blocks and display them.
+ Your sales and marketing team can manipulate them in abobereich, so you can do A/B tests without doing any stuff on 
+ the frontend rendering. Maintain the blocks at abobereich.
+
+The blocks context is always related to a product, so set it.
+
+	$client->blocks($product);    // the blocks context
+
+	//  or later on
+	$blocksContext->setProduct($product);    // set another product for the blocks context
+
+
+#### Getting all blocks for a product
+
+	/** @var array $blocks */
+	$blocks = $client->blocks($product)->all();
+
+
+#### Getting all blocks for a product for one or many languages
+
+	/** @var array $blocks */
+	$blocks = $client->blocks($product)->allWithLanguage('en');
+
+	/** @var array $blocks */
+	$blocks = $client->blocks($product)->allWithLanguage(['en', 'de', 'fr']);
+
+
+#### Resulting blocks array
+
+The resulting blocks array has the following structure:
+
+	{
+		"PLAN-SLUG": {
+			"BLOCK-IDENTIFIER": {
+				"LANGUAGE-CODE": "CONTENT-IN-LANGUAGE"
+			}
+		}
+	}
+
+All language-neutral blocks will be set in all languages returned. So you do not have to be careful by checking array 
+ set. Every block in every language will be in the result. Null-values will be null.
+
+Example:
+
+	{
+		"super-plan": {
+			"teaser_image": {
+				"de": "teaser.png",
+				"en": "teaser.png",
+			},
+			"subscription_headline": {
+				"de": "Super Plan - Das musst du haben...",
+				"en": "All you need is SUPER PLAN!",
+			}
+		}
+	}

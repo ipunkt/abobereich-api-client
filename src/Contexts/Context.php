@@ -68,7 +68,7 @@ abstract class Context
      * index route call
      *
      * @param string $uri
-     * @param string $indexOfResponse
+     * @param string|null $indexOfResponse
      *
      * @return array|Model[]
      */
@@ -77,8 +77,12 @@ abstract class Context
         $response = $this->getRequest($uri);
         $result = $this->toArray($response);
 
-        if (null !== $result && array_key_exists($indexOfResponse, $result)) {
-            return $this->transformer()->transformCollection($result[$indexOfResponse]);
+        if (null !== $indexOfResponse) {
+            if (null !== $result && array_key_exists($indexOfResponse, $result)) {
+                return $this->transformer()->transformCollection($result[$indexOfResponse]);
+            }
+        } else {
+            return $result;
         }
 
         return [];
