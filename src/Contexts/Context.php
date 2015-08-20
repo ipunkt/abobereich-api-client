@@ -164,16 +164,26 @@ abstract class Context
             $response = $this->client->send($request);
 
             return $response;
-        } catch (\Exception $e) {
+        } catch (ServerException $e) {
+            throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
+        } catch (ClientException $e) {
             $message = 'Request not successful';
-            if ($e->hasResponse()) {
-                $result = json_decode($e->getResponse()->getBody(), true);
-                if (array_key_exists('message', $result)) {
-                    $message = $result['message'];
-                }
+            $code = $e->getCode();
+
+            if ($e->hasResponse() && $e->getResponse()->hasHeader('Content-Type') && in_array('application/json', $e->getResponse()->getHeader('Content-Type'))) {
+                $responseData = json_decode($e->getResponse()->getBody(), true);
+                $message = array_key_exists('message', $responseData) ? $responseData['message'] : '';
+                $code = array_key_exists('status_code', $responseData) ? $responseData['status_code'] : $e->getCode();
             }
 
-            throw new RequestNotSuccessfulException($message, $e->getCode(), $e);
+            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 422) {
+                $result = json_decode($e->getResponse()->getBody(), true);
+                throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
+            }
+
+            throw new RequestNotSuccessfulException($message, $code, $e);
+        } catch (\Exception $e) {
+            throw new RequestNotSuccessfulException('Request not successful', $e->getCode(), $e);
         }
     }
 
@@ -199,20 +209,22 @@ abstract class Context
             throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
         } catch (ClientException $e) {
             $message = 'Model could not be created';
+            $code = $e->getCode();
 
-            if ($e->getResponse()->getStatusCode() === 422) {
-                if ($e->hasResponse()) {
-                    $result = json_decode($e->getResponse()->getBody(), true);
-                    throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
-                }
-            } elseif ($e->hasResponse()) {
-                $result = json_decode($e->getResponse()->getBody(), true);
-                if (array_key_exists('message', $result)) {
-                    $message = $result['message'];
-                }
+            if ($e->hasResponse() && $e->getResponse()->hasHeader('Content-Type') && in_array('application/json', $e->getResponse()->getHeader('Content-Type'))) {
+                $responseData = json_decode($e->getResponse()->getBody(), true);
+                $message = array_key_exists('message', $responseData) ? $responseData['message'] : '';
+                $code = array_key_exists('status_code', $responseData) ? $responseData['status_code'] : $e->getCode();
             }
 
-            throw new ModelNotCreatedException($data, $message, $e->getCode(), $e);
+            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 422) {
+                $result = json_decode($e->getResponse()->getBody(), true);
+                throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
+            }
+
+            throw new ModelNotCreatedException($data, $message, $code, $e);
+        } catch (\Exception $e) {
+            throw new RequestNotSuccessfulException('Model could not be created', $e->getCode(), $e);
         }
     }
 
@@ -238,20 +250,22 @@ abstract class Context
             throw new RequestNotSuccessfulException($e->getMessage(), $e->getCode(), $e);
         } catch (ClientException $e) {
             $message = 'Model could not be updated';
+            $code = $e->getCode();
 
-            if ($e->getResponse()->getStatusCode() === 422) {
-                if ($e->hasResponse()) {
-                    $result = json_decode($e->getResponse()->getBody(), true);
-                    throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
-                }
-            } elseif ($e->hasResponse()) {
-                $result = json_decode($e->getResponse()->getBody(), true);
-                if (array_key_exists('message', $result)) {
-                    $message = $result['message'];
-                }
+            if ($e->hasResponse() && $e->getResponse()->hasHeader('Content-Type') && in_array('application/json', $e->getResponse()->getHeader('Content-Type'))) {
+                $responseData = json_decode($e->getResponse()->getBody(), true);
+                $message = array_key_exists('message', $responseData) ? $responseData['message'] : '';
+                $code = array_key_exists('status_code', $responseData) ? $responseData['status_code'] : $e->getCode();
             }
 
-            throw new ModelNotUpdatedException($data, $message, $e->getCode(), $e);
+            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 422) {
+                $result = json_decode($e->getResponse()->getBody(), true);
+                throw new InvalidRequestDataException($result, 'Invalid request data', $e->getCode(), $e);
+            }
+
+            throw new ModelNotUpdatedException($data, $message, $code, $e);
+        } catch (\Exception $e) {
+            throw new RequestNotSuccessfulException('Model could not be updated', $e->getCode(), $e);
         }
     }
 }
